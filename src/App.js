@@ -9,22 +9,28 @@ export default function App() {
 	const [videos, setVideos] = useState([])
 
 	useEffect(() => {
-		// TODO: Get the data from API_URL above
-		// Store it inside videos state variable
-       fetch(API_URL).then((respones)=>respones.json()).then((json)=>setVideos(json))
-       
-        
+		fetch(API_URL)
+			.then((data) => data.json())
+			.then((data) => setVideos(data))
 	}, [])
-        
 
 	return (
 		<div className="app">
 			<div className="container">
-				{/* TODO: Loop over the API_URL data and render Video component */
-            videos.map((data)=><Video url={data.url} />)  
-                }
-				{/* TODO: Make sure to assign the correct URL for each video */}
-				
+				{videos.map((video) => {
+					return (
+						<Video
+							key={video.url}
+							channel={video.channel}
+							description={video.description}
+							song={video.song}
+							likes={video.likes}
+							shares={video.shares}
+							messages={video.messages}
+							url={video.url}
+						/>
+					)
+				})}
 			</div>
 		</div>
 	)
